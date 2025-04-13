@@ -1,6 +1,17 @@
+
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardHeader } from "@/components/ui/card";
 import { NavigationMenu, NavigationMenuLink } from "@/components/ui/navigation-menu";
+
+import CongressAPI from './api';
+
+const api = new CongressAPI();
+console.log("Here")
+
+api.fetchCongressMember()
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
 
 const fakeData = [
   { id: 1, name: "John Doe", position: "Software Engineer", salary: "$120,000" },

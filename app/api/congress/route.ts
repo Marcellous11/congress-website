@@ -1,5 +1,4 @@
 
-"use server"
  import { NextResponse } from "next/server"
 
 type Congressmen =     {
@@ -25,11 +24,14 @@ type Congressmen =     {
 }
 
 
-type CongressmenList = {
+export type CongressmenList = {
   "members":[
     Congressmen
   ]
 }
+
+export const runtime = 'edge';
+
 
 export async function GET() {
 

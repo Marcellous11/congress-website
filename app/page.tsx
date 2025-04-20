@@ -1,20 +1,14 @@
 
 "use client"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardHeader } from "@/components/ui/card";
+// import { Card, CardHeader } from "@/components/ui/card";
 import { NavigationMenu, NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { CongressmenList } from "./api/congress/route";
 import React from "react";
 import { useEffect, useState } from "react";
 
-
-type CongressResponse = {
-  // Define the expected structure from the API
-  results: any[]
-}
-
-
 export default function Home() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<CongressmenList | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

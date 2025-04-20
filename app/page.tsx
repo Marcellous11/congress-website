@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("api/")
+        const res = await fetch("api/congress")
         const resData = await res.json()
         setData(resData)
       } catch (error) {

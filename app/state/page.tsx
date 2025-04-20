@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function State() {
+export default function page() {
   return (
-    <div>State</div>
+    <div>page</div>
   )
 }

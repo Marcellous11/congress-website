@@ -1,26 +1,71 @@
 
-
+"use client"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardHeader } from "@/components/ui/card";
 import { NavigationMenu, NavigationMenuLink } from "@/components/ui/navigation-menu";
+import React from "react";
+import { useEffect, useState } from "react";
 
-import CongressAPI from './api';
 
-const api = new CongressAPI();
-console.log("Here")
+type CongressResponse = {
+  // Define the expected structure from the API
+  results: any[]
+}
 
-api.fetchCongressMember()
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-
-const fakeData = [
-  { id: 1, name: "John Doe", position: "Software Engineer", salary: "$120,000" },
-  { id: 2, name: "Jane Smith", position: "Data Scientist", salary: "$130,000" },
-  { id: 3, name: "Peter Jones", position: "Project Manager", salary: "$110,000" },
-  { id: 4, name: "Mary Brown", position: "UX Designer", salary: "$100,000" },
-];
 
 export default function Home() {
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("api/")
+        const resData = await res.json()
+        setData(resData)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData()
+    }
+  , [])
+
+  console.log(data)
+  const fakeData = {
+      members: [
+        {
+          id:1,
+          bioguideId: 'H001089',
+          depiction: [Object],
+          district: null,
+          name: 'Hawley, Josh',
+          partyName: 'Republican',
+          state: 'Missouri',
+          terms: [Object],
+          updateDate: '2025-04-12T12:42:18Z',
+          url: 'https://api.congress.gov/v3/member/H001089?format=json'
+        },
+        {
+          id:2,
+          bioguideId: 'G000551',
+          depiction: [Object],
+          district: 3,
+          name: 'Grijalva, Raúl M.',
+          partyName: 'Democratic',
+          state: 'Arizona',
+          terms: [Object],
+          updateDate: '2025-03-28T15:05:08Z',
+          url: 'https://api.congress.gov/v3/member/G000551?format=json'
+        }
+      ]}
+
+  useEffect(()=>{
+    
+    // *** Going to make gov calls through cloudflare ***
+  },[])
+
+
+
   return (
     <div className="min-h-screen bg-gray-50 p-8 sm:p-20">
       {/* Navigation Menu */}
@@ -31,13 +76,6 @@ export default function Home() {
         <NavigationMenuLink href="/payments" >Payments</NavigationMenuLink>
       </NavigationMenu>
 
-      {/* New Header Section */}
-      <Card>
-        <CardHeader className="bg-gray-100 p-4 text-gray-800">
-          <h2 className="text-2xl font-bold">Team Overview</h2>
-          <p className="text-gray-600 mt-2">Quick view of our team members and their roles.</p>
-        </CardHeader>
-      </Card>
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800">Welcome to Congress Website</h1>
         <p className="text-gray-600 mt-4">Explore the data and insights about our team members.</p>
@@ -54,12 +92,12 @@ export default function Home() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {fakeData.map((row) => (
+            {fakeData["members"].map((row) => (
               <TableRow key={row.id}>
-                <TableCell>{row.id}</TableCell>
+                <TableCell>{row.state}</TableCell>
                 <TableCell>{row.name}</TableCell>
-                <TableCell>{row.position}</TableCell>
-                <TableCell>{row.salary}</TableCell>
+                <TableCell>{row.partyName}</TableCell>
+                <TableCell>{row.url}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -3,7 +3,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 // import { Card, CardHeader } from "@/components/ui/card";
 import { NavigationMenu, NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { CongressmenList } from "./api/congress/route";
+import { CongressmenList } from "./classes/congress";
 import React from "react";
 import { useEffect, useState } from "react";
 

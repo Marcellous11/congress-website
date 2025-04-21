@@ -1,7 +1,7 @@
 
  import { NextResponse } from "next/server"
 
-import { Congress,CongressmenList, } from "@/app/classes/congress";
+import { Congress} from "@/app/classes/congress";
 
 export const runtime = 'edge';
 

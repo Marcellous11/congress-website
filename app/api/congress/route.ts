@@ -1,46 +1,18 @@
 
  import { NextResponse } from "next/server"
 
-type Congressmen =     {
-  "bioguideId": string,
-  "depiction": {
-    "attribution": string,
-    "imageUrl": string
-  },
-  "district": number,
-  "name": string,
-  "partyName": string,
-  "state": string,
-  "terms": {
-    "item": [
-      {
-        "chamber": string,
-        "startYear": number
-      }
-    ]
-  },
-  "updateDate":string,
-  "url": string
-}
-
-
-export type CongressmenList = {
-  "members":[
-    Congressmen
-  ]
-}
+import { Congress,CongressmenList, } from "@/app/classes/congress";
 
 export const runtime = 'edge';
 
 
+
+
 export async function GET() {
 
-    const apiToken = process.env.GOV_API_TOKEN
-    console.log(apiToken)
+  const congresAPI = new Congress();
 
-  const res = await fetch(`https://api.congress.gov/v3/member/congress/117?currentMember=false&api_key=${apiToken}`)
+  const res =await  congresAPI.get_current_congress_members()
 
-  const data: CongressmenList = await res.json()
-  
-  return NextResponse.json(data);
+  return NextResponse.json(res);
 }
